@@ -61,6 +61,8 @@ require('lazy').setup({
 
 require 'plugins.colortheme',
 
+require 'plugins.lualine',
+
  { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
