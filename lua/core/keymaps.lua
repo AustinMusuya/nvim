@@ -33,3 +33,26 @@ vim.keymap.set('n', '<Right>', ':vertical resize +2<CR>', opts)
 --Toggle neotree
 vim.keymap.set('n', '<C-_>', '<cmd>Neotree toggle<CR>', opts)
 
+
+
+----Buffer set-up----
+
+-- Next / previous buffer
+vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+
+-- Jump directly to buffer 1–9 using Space + number
+for i = 1, 9 do
+  vim.keymap.set("n", "<leader>" .. i, "<Cmd>BufferLineGoToBuffer " .. i .. "<CR>", { desc = "Go to buffer " .. i })
+end
+
+-- Close current buffer with Space + c
+vim.keymap.set("n", "<leader>c", "<Cmd>Bdelete<CR>", { desc = "Close current buffer" })
+
+-- Move buffer left: Space + < (that's Shift + ,)
+vim.keymap.set("n", "<leader><", "<Cmd>BufferLineMovePrev<CR>", { desc = "Move buffer left" })
+
+-- Move buffer right: Space + > (that's Shift + .)
+vim.keymap.set("n", "<leader>>", "<Cmd>BufferLineMoveNext<CR>", { desc = "Move buffer right" })
+
+
