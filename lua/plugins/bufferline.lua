@@ -62,16 +62,34 @@ return {
 	
       },
       highlights = {
+  	fill = {
+    	  bg = "#2e3440", -- Change this to any color you prefer
+  	},
         separator = {
           fg = '#434C5E',
         },
         buffer_selected = {
           bold = true,
           italic = false,
+    	  bg = "#434C5E", -- Background of the active buffer
+    	  fg = "#eceff4",
         },
-        -- separator_selected = {},
+        separator_selected = {
+	  fg = "#3a3f4b",
+    	  bg = "#2c313c",
+	},
         -- tab_selected = {},
-        -- background = {},
+        background = {
+          bg ="#3b4252",
+         },
+  	modified = {
+    	  fg = "#88c0d0", -- blue indicator for unsaved buffers
+    	  bg = "#3b4252",
+  	},
+  	modified_selected = {
+    	  fg = "#88c0d0",
+    	  bg = "#434C5E",
+  	},
         -- indicator_selected = {},
         -- fill = {},
       },
