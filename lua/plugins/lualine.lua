@@ -2,8 +2,34 @@
 -- plugins/lualine.lua
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {'nvim-tree/nvim-web-devicons', },
+
   config = function()
+    local mode = {
+      'mode',
+      fmt = function(str)
+        -- return ' ' .. str:sub(1, 1) -- displays only the first character of the mode
+        return ' ' .. str
+      end,
+
+       color = function()
+    -- Get current mode
+    local mode = vim.fn.mode()
+    local mode_color = {
+      n = { fg = '#ffffff', bg = '#a60000' },  -- Normal = Red
+      i = { fg = '#ffffff', bg = '#005f00' },  -- Insert = Green
+      v = { fg = '#ffffff', bg = '#5f00af' },  -- Visual = Purple
+      [''] = { fg = '#ffffff', bg = '#5f00af' },  -- Visual block
+      V = { fg = '#ffffff', bg = '#5f00af' },  -- Visual line
+      c = { fg = '#ffffff', bg = '#875f00' },  -- Command = Orange
+      R = { fg = '#ffffff', bg = '#870000' },  -- Replace = Dark Red
+      t = { fg = '#ffffff', bg = '#005f87' },  -- Terminal = Blue
+    }
+    return mode_color[mode] or { fg = '#ffffff', bg = '#444444' }  -- Fallback color
+  end,
+    }
+
+
     require('lualine').setup {
       options = {
         icons_enabled = true,
@@ -25,7 +51,7 @@ return {
         }
       },
       sections = {
-        lualine_a = {'mode'},
+        lualine_a = {mode},
         lualine_b = {'branch', 'diff', 'diagnostics'},
         lualine_c = {'filename'},
         lualine_x = {'encoding', 'fileformat', 'filetype'},
