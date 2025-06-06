@@ -37,6 +37,16 @@ require 'plugins.telescope',
 
 require 'plugins.lsp',
 
+require 'plugins.autocompletion',
+
+require 'plugins.autoformatter',
+
+{
+  'numToStr/Comment.nvim',
+  opts = {},
+  lazy = false, -- or event = "VeryLazy"
+},
+
 -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
