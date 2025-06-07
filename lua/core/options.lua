@@ -6,5 +6,4 @@ vim.g.have_nerd_font = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 -- Apply same indentation as the previous line
-vim.o.autoindent  = true
-
+vim.o.autoindent = true
