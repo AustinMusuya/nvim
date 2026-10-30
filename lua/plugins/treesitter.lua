@@ -1,48 +1,63 @@
-return { -- Highlight, edit, and navigate code
+return {
 	"nvim-treesitter/nvim-treesitter",
-
+	branch = "main",
+	lazy = false,
 	build = ":TSUpdate",
+
+	dependencies = {
+		"neovim-treesitter/treesitter-parser-registry",
+	},
+
 	config = function()
-		local configs = require("nvim-treesitter.configs")
-		--main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-		configs.setup({
-			ensure_installed = {
-				"cpp",
-				"c",
-				"lua",
-				"python",
-				"javascript",
-				"typescript",
-				"vimdoc",
-				"vim",
-				"regex",
-				"terraform",
-				"sql",
-				"dockerfile",
-				"toml",
-				"json",
-				"java",
-				"groovy",
-				"go",
-				"gitignore",
-				"graphql",
-				"yaml",
-				"make",
-				"cmake",
-				"markdown",
-				"markdown_inline",
-				"bash",
-				"tsx",
-				"css",
-				"html",
-			},
-			-- Autoinstall languages that are not installed
-			auto_install = true,
-			highlight = { enable = true },
-			indent = { enable = true, disable = { "ruby" } },
-			ignore_install = {},
-			modules = {},
+		require("nvim-treesitter").setup({})
+
+		local parser_install = {
+			"cpp",
+			"c",
+			"lua",
+			"python",
+			"javascript",
+			"typescript",
+			"vimdoc",
+			"vim",
+			"regex",
+			"terraform",
+			"sql",
+			"dockerfile",
+			"toml",
+			"json",
+			"java",
+			"groovy",
+			"go",
+			"gitignore",
+			"graphql",
+			"yaml",
+			"make",
+			"cmake",
+			"markdown",
+			"markdown_inline",
+			"bash",
+			"tsx",
+			"css",
+			"html",
+		}
+
+		require("nvim-treesitter").install(parser_install)
+
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(args)
+				local buf = args.buf
+
+				-- Enable highlighting
+				pcall(vim.treesitter.start, buf)
+
+				-- Enable indentation
+				vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+				-- Enable folding
+				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+				vim.wo.foldmethod = "expr"
+			end,
 		})
 	end,
 }
